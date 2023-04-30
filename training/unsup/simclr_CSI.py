@@ -40,7 +40,7 @@ def train(P, epoch, model, criterion, optimizer, scheduler, loader, logger=None,
 
         ### SimCLR loss ###
         if P.dataset != 'imagenet':
-            batch_size = images.size(0)
+            batch_size = images.shape[0]
             images = images.to(device)
             images1, images2 = hflip(images.repeat(2, 1, 1, 1)).chunk(2)  # hflip
         else:
