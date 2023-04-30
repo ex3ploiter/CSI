@@ -4,6 +4,8 @@ import numpy as np
 import torch
 from torch.utils.data.dataset import Subset
 from torchvision import datasets, transforms
+from torchvision.datasets import  ImageFolder
+
 
 from utils.utils import set_random_seed
 
@@ -124,7 +126,7 @@ def get_transform_imagenet():
 
 def get_dataset(P, dataset, test_only=False, image_size=None, download=False, eval=False):
     if dataset in ['imagenet', 'cub', 'stanford_dogs', 'flowers102',
-                   'places365', 'food_101', 'caltech_256', 'dtd', 'pets']:
+                   'places365', 'food_101', 'caltech_256', 'dtd', 'pets','Brain-MRI','X-ray','Head-CT']:
         if eval:
             train_transform, test_transform = get_simclr_eval_transform_imagenet(P.ood_samples,
                                                                                  P.resize_factor, P.resize_fix)
@@ -144,6 +146,26 @@ def get_dataset(P, dataset, test_only=False, image_size=None, download=False, ev
         n_classes = 100
         train_set = datasets.CIFAR100(DATA_PATH, train=True, download=download, transform=train_transform)
         test_set = datasets.CIFAR100(DATA_PATH, train=False, download=download, transform=test_transform)
+
+
+    elif dataset == "BrainMRI" or dataset == "X-ray" or dataset == "Head-CT":    
+            
+        if dataset == "BrainMRI" : # 2
+            path1='/mnt/new_drive/Masoud_WorkDir/MeanShift_Tests/Training'
+            path2='/mnt/new_drive/Masoud_WorkDir/MeanShift_Tests/Testing'
+        elif dataset == "X-ray" : # 0
+            path1='/mnt/new_drive/Sepehr/chest_xray/train'
+            path2='/mnt/new_drive/Sepehr/chest_xray/test'
+
+        elif dataset == "Head-CT" :# 1
+            path1='/mnt/new_drive/Masoud_WorkDir/MeanShift_Tests/HEAD_CT/Train'
+            path2='/mnt/new_drive/Masoud_WorkDir/MeanShift_Tests/HEAD_CT/Test'
+        
+        train_set = ImageFolder(root=path1, transform=train_transform)
+        test_set = ImageFolder(root=path2, transform=test_transform)            
+        
+
+
 
     elif dataset == 'svhn':
         assert test_only and image_size is not None
