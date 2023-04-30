@@ -149,17 +149,20 @@ def get_dataset(P, dataset, test_only=False, image_size=None, download=True, eva
 
 
     elif dataset == "BrainMRI" or dataset == "X-ray" or dataset == "Head-CT":    
-            
+        image_size = (224, 224, 3)        
         if dataset == "BrainMRI" : # 2
+            n_classes = 4
             path1='/mnt/new_drive/Masoud_WorkDir/MeanShift_Tests/Training'
             path2='/mnt/new_drive/Masoud_WorkDir/MeanShift_Tests/Testing'
         elif dataset == "X-ray" : # 0
+            n_classes = 2
             path1='/mnt/new_drive/Sepehr/chest_xray/train'
             path2='/mnt/new_drive/Sepehr/chest_xray/test'
 
         elif dataset == "Head-CT" :# 1
-            path1='/mnt/new_drive/Masoud_WorkDir/MeanShift_Tests/HEAD_CT/Train'
-            path2='/mnt/new_drive/Masoud_WorkDir/MeanShift_Tests/HEAD_CT/Test'
+            n_classes = 2
+            path1='/mnt/new_drive/Masoud_WorkDir/Head-CT/TrainWithAnomal/Train'
+            path2='/mnt/new_drive/Masoud_WorkDir/Head-CT/TrainWithAnomal/Test'
         
         train_set = ImageFolder(root=path1, transform=train_transform)
         test_set = ImageFolder(root=path2, transform=test_transform)            
