@@ -124,7 +124,7 @@ def get_transform_imagenet():
     return train_transform, test_transform
 
 
-def get_dataset(P, dataset, test_only=False, image_size=None, download=False, eval=False):
+def get_dataset(P, dataset, test_only=False, image_size=None, download=True, eval=False):
     if dataset in ['imagenet', 'cub', 'stanford_dogs', 'flowers102',
                    'places365', 'food_101', 'caltech_256', 'dtd', 'pets','Brain-MRI','X-ray','Head-CT']:
         if eval:
@@ -257,12 +257,21 @@ def get_dataset(P, dataset, test_only=False, image_size=None, download=False, ev
 
 
 def get_superclass_list(dataset):
+    
     if dataset == 'cifar10':
         return CIFAR10_SUPERCLASS
     elif dataset == 'cifar100':
         return CIFAR100_SUPERCLASS
     elif dataset == 'imagenet':
         return IMAGENET_SUPERCLASS
+    
+    elif dataset == 'BrainMRI':
+        return  list(range(4))  # one class
+    elif dataset == 'X-ray':
+        return  list(range(2))  # one class
+    elif dataset == 'Head-CT':
+        return  list(range(2))  # one class
+
     else:
         raise NotImplementedError()
 

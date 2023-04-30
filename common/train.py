@@ -49,11 +49,11 @@ if P.one_class_idx is not None:
     P.n_superclasses = len(cls_list)
 
     full_test_set = deepcopy(test_set)  # test set of full classes
-    # train_set = get_subclass_dataset(train_set, classes=cls_list[P.one_class_idx])
-    # test_set = get_subclass_dataset(test_set, classes=cls_list[P.one_class_idx])
+    train_set = get_subclass_dataset(train_set, classes=cls_list[P.one_class_idx])
+    test_set = get_subclass_dataset(test_set, classes=cls_list[P.one_class_idx])
 
-    train_set = get_subclass_dataset(train_set, classes=P.one_class_idx)
-    test_set = get_subclass_dataset(test_set, classes=P.one_class_idx)
+    # train_set = get_subclass_dataset(train_set, classes=P.one_class_idx)
+    # test_set = get_subclass_dataset(test_set, classes=P.one_class_idx)
 
     print(f'\nTrainset Len : {len(train_set)}')
     print(f'Testset Len : {len(test_set)}\n')
